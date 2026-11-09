@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "item_id",
+    "question",
+    "options",
+    "media"
+  ],
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "zh": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          },
+          "minProperties": 1,
+          "additionalProperties": false
+        }
+      ]
+    },
+    "options": {
+      "type": "object",
+      "required": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "properties": {
+        "A": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "B": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "C": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "D": {
+          "type": [
+            "string",
+            "object"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "capability": {
+      "enum": [
+        "R",
+        "C",
+        "J",
+        "O",
+        "G"
+      ]
+    },
+    "subtask": {
+      "type": "string"
+    },
+    "original_capability": {
+      "enum": [
+        "R",
+        "C",
+        "J",
+        "O",
+        "G"
+      ]
+    },
+    "original_subtask": {
+      "type": "string"
+    },
+    "media": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset": {
+            "type": "string"
+          },
+          "media_id": {
+            "type": "string"
+          },
+          "duration_s": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "file_available": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "tracks": {
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "asset"
+            ]
+          },
+          {
+            "required": [
+              "media_id"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewer_resources": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "anyOf": [
+        {
+          "required": [
+            "capability"
+          ]
+        },
+        {
+          "required": [
+            "original_capability"
+          ]
+        }
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "required": [
+            "subtask"
+          ]
+        },
+        {
+          "required": [
+            "original_subtask"
+          ]
+        }
+      ]
+    }
+  ]
+}
